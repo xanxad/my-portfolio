@@ -1,15 +1,14 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { BackgroundGradientAnimation } from "./GradientBg";
 import { IoCopyOutline } from "react-icons/io5";
-
+import dynamic from "next/dynamic";
 import { useState } from "react";
-
-import animationData from "@/data/confetti.json";
-import Lottie from "react-lottie";
-import MagicButton from "./MagicButton";
 import Image from "next/image";
+import MagicButton from "./MagicButton";
+
+const Lottie = dynamic(() => import("react-lottie"), { ssr: false });
+import animationData from "@/data/confetti.json";
 
 export const BentoGrid = ({
   className,
@@ -34,7 +33,6 @@ export const BentoGridItem = ({
   className,
   title,
   description,
-
   id,
   img,
   spareImg,
@@ -44,8 +42,6 @@ export const BentoGridItem = ({
   className?: string;
   title?: string | React.ReactNode;
   description?: string | React.ReactNode;
-  header?: React.ReactNode;
-  icon?: React.ReactNode;
   id?: number;
   img?: string;
   spareImg?: string;
@@ -55,10 +51,12 @@ export const BentoGridItem = ({
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText("seifubiniam6@gmail.com");
-
-    setCopied(true);
+    if (typeof window !== "undefined") {
+      navigator.clipboard.writeText("seifubiniam6@gmail.com");
+      setCopied(true);
+    }
   };
+
   return (
     <div
       className={cn(
@@ -102,12 +100,6 @@ export const BentoGridItem = ({
           )}
         </div>
 
-        {id === 6 && (
-          <BackgroundGradientAnimation>
-            <div className="absolute z-50 flex items-center justify-center text-center font-bold" />
-          </BackgroundGradientAnimation>
-        )}
-
         <div
           className={cn(
             titleClassName || "",
@@ -121,7 +113,6 @@ export const BentoGridItem = ({
             {title}
           </div>
 
-          {/* Duplicate content for id === 3 */}
           {id === 3 && (
             <>
               <div className="flex gap-1 lg:gap-5 w-fit absolute -right-3 lg:-right-2">
@@ -152,15 +143,15 @@ export const BentoGridItem = ({
           )}
 
           {id === 6 && (
-            <div className=" mt-5 relative">
+            <div className="mt-5 relative">
               <div className={`absolute -bottom-5 right-0`}>
                 <Lottie
                   options={{
                     loop: copied,
                     autoplay: copied,
-                    animationData,
+                    animationData: animationData,
                     rendererSettings: {
-                      preserveAspectRatio: "xMidyMid slice",
+                      preserveAspectRatio: "xMidYMid slice",
                     },
                   }}
                 />
