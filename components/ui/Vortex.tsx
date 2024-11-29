@@ -189,7 +189,6 @@ export const Vortex = (props: VortexProps) => {
     return x > canvas.width || x < 0 || y > canvas.height || y < 0;
   };
 
-  // Wrap the resize function with useCallback
   const resize = useCallback((canvas: HTMLCanvasElement) => {
     const { innerWidth, innerHeight } = window;
 
@@ -198,7 +197,7 @@ export const Vortex = (props: VortexProps) => {
 
     center[0] = 0.5 * canvas.width;
     center[1] = 0.5 * canvas.height;
-  }, []); // Empty dependency array since resize doesn't depend on any props or state
+  }, []);
 
   const renderGlow = (
     canvas: HTMLCanvasElement,
