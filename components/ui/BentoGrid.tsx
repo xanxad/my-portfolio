@@ -9,7 +9,6 @@ import { useState } from "react";
 import animationData from "@/data/confetti.json";
 import Lottie from "react-lottie";
 import MagicButton from "./MagicButton";
-import WorldMapDemo from "./World";
 
 export const BentoGrid = ({
   className,
@@ -34,8 +33,7 @@ export const BentoGridItem = ({
   className,
   title,
   description,
-  header,
-  icon,
+
   id,
   img,
   spareImg,
