@@ -10,7 +10,6 @@ export const PinContainer = ({
   href,
   className,
   containerClassName,
-  img,
 }: {
   children: React.ReactNode;
   title?: string;

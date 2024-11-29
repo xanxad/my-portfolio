@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useCallback } from "react";
 import { createNoise3D } from "simplex-noise";
 import { motion } from "framer-motion";
 
@@ -55,7 +55,8 @@ export const Vortex = (props: VortexProps) => {
   const lerp = (n1: number, n2: number, speed: number): number =>
     (1 - speed) * n1 + speed * n2;
 
-  const setup = () => {
+  // Wrap the setup function with useCallback
+  const setup = useCallback(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
     if (canvas && container) {
@@ -67,7 +68,7 @@ export const Vortex = (props: VortexProps) => {
         draw(canvas, ctx);
       }
     }
-  };
+  }, []); // Empty dependency array since setup doesn't depend on any props or state
 
   const initParticles = () => {
     tick = 0;
@@ -188,7 +189,8 @@ export const Vortex = (props: VortexProps) => {
     return x > canvas.width || x < 0 || y > canvas.height || y < 0;
   };
 
-  const resize = (canvas: HTMLCanvasElement) => {
+  // Wrap the resize function with useCallback
+  const resize = useCallback((canvas: HTMLCanvasElement) => {
     const { innerWidth, innerHeight } = window;
 
     canvas.width = innerWidth;
@@ -196,7 +198,7 @@ export const Vortex = (props: VortexProps) => {
 
     center[0] = 0.5 * canvas.width;
     center[1] = 0.5 * canvas.height;
-  };
+  }, []); // Empty dependency array since resize doesn't depend on any props or state
 
   const renderGlow = (
     canvas: HTMLCanvasElement,
